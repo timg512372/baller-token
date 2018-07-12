@@ -1,0 +1,3 @@
+ballertoken: 0xa271b1d143605fa891f8e5beb7de85256c623357
+ballermarket: 0xfe6acB1998ffD44B23F8431e27362274b9fF886e
+truffle migrate --network ropsten --reset

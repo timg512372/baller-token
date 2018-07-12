@@ -6,21 +6,23 @@ import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 contract BallerToken is ERC721Token, Ownable {
   string public constant name = "BallerToken";
   string public constant symbol = "BALL";
+  uint256 public constant CREATION_LIMIT = 50000;
 
   struct Baller {
-      uint256 stats;
+      string props;
   }
 
   Baller[] ballers;
 
-  function mint(uint256 _stats) public onlyOwner {
-      Baller memory _baller = Baller({ stats: _stats });
+  function mint(string _props) public onlyOwner {
+      require(totalTokens < CREATION_LIMIT);
+      Baller memory _baller = Baller({ props: _props });
       uint256 _ballerId = ballers.push(_baller) - 1;
       _mint(msg.sender, _ballerId);
   }
 
-  function getBaller(uint _ballerId) public view returns(uint256 stats) {
+  function getBaller(uint _ballerId) public view returns(string props) {
       Baller memory _baller = ballers[_ballerId];
-      stats = _baller.stats;
+      props = _baller.props;
   }
 }

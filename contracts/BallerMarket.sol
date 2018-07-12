@@ -7,7 +7,7 @@ contract BallerMarket {
 
   struct Market {
       address seller;
-      uint256 price;
+      uint128 price;
   }
 
   mapping (uint256 => Market) public tokenIdToMarket;
@@ -16,13 +16,13 @@ contract BallerMarket {
     nonFungibleContract = ERC721(_nftAddress);
   }
 
-  function createMarket(uint256 _tokenId, uint256 _price) public {
+  function createListing(uint256 _tokenId, uint128 _price) public {
       nonFungibleContract.takeOwnership(_tokenId);
-      Market memory _market = Market({ seller: msg.sender, price: uint256(_price) });
+      Market memory _market = Market({ seller: msg.sender, price: uint128(_price) });
       tokenIdToMarket[_tokenId] = _market;
   }
 
-  function bid(uint256 _tokenId) public payable {
+  function buy(uint256 _tokenId) public payable {
       Market memory market = tokenIdToMarket[_tokenId];
       require(market.seller != address(0));
       require(msg.value >= market.price);

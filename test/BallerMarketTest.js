@@ -9,7 +9,7 @@ contract("Market", accounts => {
         assert.equal(nftAddr, nft.address);
     });
 
-    describe("createMarket", () => {
+    describe("createListing", () => {
         let nft, marketContract, tokens;
 
         before(async () => {
@@ -20,7 +20,7 @@ contract("Market", accounts => {
             tokens = await nft.tokensOf(accounts[0]);
 
             await nft.approve(marketContract.address, tokens[0]);
-            await marketContract.createMarket(tokens[0], 100);
+            await marketContract.createListing(tokens[0], 100);
         });
 
         it("Should take ownership of a token", async () => {
